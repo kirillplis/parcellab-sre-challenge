@@ -32,6 +32,19 @@ eks_clusters = {
           "capacity_type" = "SPOT"
         }
       }
+      on-demand = {
+        name = "on-demand"
+
+        desired_size = 1
+        max_size     = 1
+        min_size     = 1
+
+        instance_types = ["t2.micro"]
+        capacity_type  = "ON_DEMAND"
+        labels = {
+          "capacity_type" = "ON_DEMAND"
+        }
+      }
     }
     cluster_service_ipv4_cidr = "10.82.0.0/16"
   }
