@@ -26,10 +26,10 @@ spec:
         resources:
           {{- toYaml . | nindent 10 }}
         {{- end }}
-          env:
-            {{- range $key, $value := $appConfig.env }}
-            - name: {{ $key }}
-              value: {{ $value | quote }}
-            {{- end }}
+        env:
+          {{- range $key, $value := $appConfig.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
 ---
 {{- end }}

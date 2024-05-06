@@ -1,6 +1,6 @@
-# This repository contains sample Python REST API application, dockerfile, helm charts and GitHub Actions configuration file for [ParcelLab SRE challenge](https://github.com/parcelLab/challenge-site-reliability-engineer)
+# This repository contains sample Python REST API application, Dockerfile, Helm Charts, Terraform code and GitHub Actions configuration file for [ParcelLab SRE challenge](https://github.com/parcelLab/challenge-site-reliability-engineer)
 
-## How to use
+## How to use the greet-api app
 For client A:
 ```
 curl https://greet-api-client-a.kirillplis.uk/
@@ -44,8 +44,8 @@ terraform/
 └── vpc.tf
 ```
 I build infrastructure on AWS from scratch using Terraform. It deploys the following:
-* a VPC with public subnets for EKS, 
-* EKS itself,
+* a VPC with all network resources required for EKS to operate,
+* EKS itself
 * ECR
 * OIDC for GitHub
 * Necessary IAM roles and policies
