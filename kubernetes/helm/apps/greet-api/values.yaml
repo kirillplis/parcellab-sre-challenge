@@ -1,7 +1,6 @@
 image:
   repo: 211125442702.dkr.ecr.eu-central-1.amazonaws.com/greet-api
-  tag: dfb81d45a0527cff617dd8992b1791b8bd868049
-
+  tag: 234639d8c72ddc0c31e40a06849bda49b642f4e4
 apps:
   client-a:
     resources:
