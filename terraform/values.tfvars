@@ -32,6 +32,7 @@ eks_clusters = {
           "capacity_type" = "SPOT"
         }
       }
+      # this node group is needed to overcome free tier limitation - 8 cpu cores for spot nodes (it's the same for on-demand)
       on-demand = {
         name = "on-demand"
 

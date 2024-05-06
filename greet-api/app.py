@@ -8,7 +8,7 @@ app = Flask('greet-api')
 
 @app.route('/', methods=['GET'])
 def hello_world():
-    return GREETING
+    return f"{GREETING}\n"
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 80)

@@ -1,7 +1,21 @@
 # This repository contains sample Python REST API application, dockerfile, helm charts and GitHub Actions configuration file for [ParcelLab SRE challenge](https://github.com/parcelLab/challenge-site-reliability-engineer)
 
+## How to use
+For client A:
+```
+curl https://greet-api-client-a.kirillplis.uk/
+
+Hi
+```
+For client B:
+```
+curl https://greet-api-client-b.kirillplis.uk/
+
+Dear Sir or Madam
+```
+
 ## How to deploy | CICD
-![alt text](image.png)
+![alt text](cicd.png)
 1. PR merge (push event) to `main` branch's `greet-api` folder triggers GitHub Actions workflow (.github/workflows/build-greet-api.yaml)
 2. GHA builds new image, pushes it to ECR, and commits it's COMMIT SHA as new tag to the application's helm chart values.yaml file
 3. ArgoCD syncs that change to the claster
