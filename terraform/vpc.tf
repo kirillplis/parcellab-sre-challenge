@@ -35,5 +35,5 @@ module "primary-vpc" {
   public_subnets      = var.public_subnets
   public_subnet_tags  = {}
 
-  enable_nat_gateway = true
+  # enable_nat_gateway = true
 }
