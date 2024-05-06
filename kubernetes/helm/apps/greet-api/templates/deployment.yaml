@@ -1,0 +1,30 @@
+{{- range $appName, $appConfig := .Values.apps }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Chart.Name }}-{{ $appName }}
+spec:
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: {{ $.Chart.Name }}-{{ $appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Chart.Name }}-{{ $appName }}
+    spec:
+      containers:
+      - name: {{ $.Chart.Name }}-{{ $appName }}
+        image: "{{ $.Values.image.repo }}:{{ $.Values.image.tag }}"
+        {{- with $appConfig.service }}
+        ports:
+          - name: {{ .name }}
+            containerPort: {{ .port }}
+            protocol: {{ .protocol }}
+        {{- end }}
+        {{- with $appConfig.resources }}
+        resources:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+---
+{{- end }}

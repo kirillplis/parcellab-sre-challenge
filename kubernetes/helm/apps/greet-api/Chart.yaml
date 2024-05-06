@@ -1,0 +1,6 @@
+apiVersion: v2
+name: greet-api
+description: A Helm chart for greet-api deployment to Kubernetes Cluster
+type: application
+version: 1.0.0
+appVersion: 1.0.0

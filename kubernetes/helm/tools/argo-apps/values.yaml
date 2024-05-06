@@ -1,0 +1,88 @@
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: git@github.com:kirillplis/parcellab-sre-challenge.git
+    targetRevision: HEAD
+
+apps:
+  - name: argo-apps
+    destinationNamespace: argocd
+    path: kubernetes/helm/tools/argo-apps
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+  - name: argocd
+    destinationNamespace: argocd
+    path: kubernetes/helm/tools/argocd
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+  - name: cert-manager
+    destinationNamespace: cert-manager
+    path: kubernetes/helm/tools/cert-manager
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+  - name: external-secrets
+    destinationNamespace: external-secrets
+    path: kubernetes/helm/tools/external-secrets
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+  - name: nginx-ingress
+    destinationNamespace: nginx-ingress
+    path: kubernetes/helm/tools/nginx-ingress
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+
+  - name: greet-api
+    destinationNamespace: greet-api
+    path: kubernetes/helm/apps/greet-api
+    helmValueFiles:
+      - values.yaml
+    targetRevision: main
+    autosyncenabled: true
+    syncpolicy:
+      automated:
+        prune: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+

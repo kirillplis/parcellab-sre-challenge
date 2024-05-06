@@ -1,0 +1,17 @@
+{{- range $appName, $appConfig := .Values.apps }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Chart.Name }}-{{ $appName }}
+  labels:
+    name: {{ $.Chart.Name }}-{{ $appName }}
+spec:
+  type: {{ $appConfig.service.type | default "ClusterIP" }}
+  ports:
+    - port: {{ $appConfig.service.port }}
+      targetPort: {{ $appConfig.service.targetPort }}
+      protocol: {{ $appConfig.service.protocol }}
+  selector:
+    app: {{ $.Chart.Name }}-{{ $appName }}
+---
+{{- end }}

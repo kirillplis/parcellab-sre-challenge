@@ -1,0 +1,65 @@
+image:
+  repo: 211125442702.dkr.ecr.eu-central-1.amazonaws.com/greet-api
+  tag: dfb81d45a0527cff617dd8992b1791b8bd868049
+
+apps:
+  client-a:
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 50Mi
+      limits:
+        memory: 50Mi
+    service:
+      name: tcp
+      type: ClusterIP
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts:
+        - greet-api-client-a.kirillplis.uk
+      paths:
+        - path: /
+          pathType: Prefix
+          servicePort: 80
+          serviceName: greet-api-client-a
+    hpa:
+      minReplicas: 1
+      maxReplicas: 3
+      cpuTarget: 75
+    env:
+      GREETING: "Hi"
+  client-b:
+    resources:
+      requests:
+        cpu: 0.1
+        memory: 50Mi
+      limits:
+        memory: 50Mi
+    service:
+      name: tcp
+      type: ClusterIP
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts:
+        - greet-api-client-b.kirillplis.uk
+      paths:
+        - path: /
+          pathType: Prefix
+          servicePort: 80
+          serviceName: greet-api-client-b
+    hpa:
+      minReplicas: 1
+      maxReplicas: 3
+      cpuTarget: 75
+    env:
+      GREETING: "Dear Sir or Madam"

@@ -1,0 +1,4 @@
+external-secrets:
+  serviceAccount:
+    annotations: 
+      eks.amazonaws.com/role-arn: "arn:aws:iam::211125442702:role/external-secrets"

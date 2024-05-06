@@ -1,0 +1,36 @@
+{{- range $appName, $appConfig := .Values.apps }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ $.Chart.Name }}-{{ $appName }}
+  labels:
+    app: {{ $.Chart.Name }}-{{ $appName }}
+  annotations:
+    {{- range $key, $value := $appConfig.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  ingressClassName: {{ $appConfig.ingress.className | default "nginx" }}
+  rules:
+  {{- range $appConfig.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          {{- range $appConfig.ingress.paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: {{ .servicePort }}
+          {{- end }}
+  {{- end }}
+  tls:
+  {{- range $appConfig.ingress.hosts }}
+    - hosts:
+        - {{ . | quote }}
+      secretName: {{ . }}-tls
+  {{- end }}
+---
+{{- end }}

@@ -1,0 +1,42 @@
+{{ $global := . -}}
+{{- range $app := .Values.apps -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $app.name }}
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: {{ $app.destinationNamespace }}
+    server: {{ $global.Values.spec.destination.server }}
+  project: default
+  source:
+    {{- with $app.path }}
+    path: {{ $app.path }}
+    {{- end }}
+    {{- if $app.chart }}
+    chart: {{ $app.chart }}
+    {{- end }}
+    repoURL: {{ $app.repoURL | default $global.Values.spec.source.repoURL }}
+    targetRevision: {{ $app.targetRevision }}
+    {{- with $app.helmValueFiles }}
+    helm:
+      valueFiles:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      {{- if $app.skipCrds | default false }}
+      skipCrds: {{ $app.skipCrds }}
+      {{- end }}
+  {{- if  $app.autosyncenabled }}
+  syncPolicy:
+    {{- toYaml $app.syncpolicy | nindent 4 }}
+  {{- end }}
+  revisionHistoryLimit: {{ $global.Values.spec.revisionHistoryLimit | default 1 }}
+  {{- with $app.ignoreDifferences }}
+  ignoreDifferences:
+    {{ toYaml . | nindent 4 }}
+  {{- end }}
+---
+{{- end }}

@@ -1,0 +1,1 @@
+# This repository contains sample Python REST API application, dockerfile, helm charts and GitHub Actions configuration file for ParcelLab SRE challenge.
