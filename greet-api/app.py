@@ -1,4 +1,5 @@
 from flask import Flask, Response, request
+import os.path
 
 CONTENT_TYPE_LATEST = str('text/plain; version=0.0.4; charset=utf-8')
 
